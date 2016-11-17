@@ -1,8 +1,7 @@
-pre { 
+pre {
     border: none !important;
-    background-color: #fff !important;
 }
-code { 
+code {
   color: inherit !important;
   background-color: #fff;
 }
@@ -115,40 +114,40 @@ pre, code {
   color: #009999;
 }
 .highlight .sb {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .sc {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .sd {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .s2 {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .se {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .sh {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .si {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .sx {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .sr {
   color: #009926;
 }
 .highlight .s1 {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .ss {
   color: #990073;
 }
 .highlight .s {
-  color: #d14;
+  color: #5facce;
 }
 .highlight .na {
   color: #008080;
@@ -215,10 +214,11 @@ pre, code {
   color: #bbbbbb;
 }
 .highlight {
-  background-color: #fff;
+  background-color: #fafafa;
   padding-bottom: 0px;
 }
 .highlighter-rouge {
   border: 1px solid #ccc;
   margin-bottom: 1em;
+  background-color: #fafafa;
 }
