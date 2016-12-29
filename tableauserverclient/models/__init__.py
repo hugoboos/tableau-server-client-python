@@ -6,6 +6,7 @@ from .group_item import GroupItem
 from .interval_item import IntervalItem, DailyInterval, WeeklyInterval, MonthlyInterval, HourlyInterval
 from .pagination_item import PaginationItem
 from .project_item import ProjectItem
+from .permission_item import PermissionItem
 from .schedule_item import ScheduleItem
 from .server_info_item import ServerInfoItem
 from .site_item import SiteItem

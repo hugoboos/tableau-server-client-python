@@ -1,6 +1,6 @@
 import unittest
 import tableauserverclient as TSC
-
+from tableauserverclient.models.exceptions import UnpopulatedPropertyError
 
 class ProjectModelTests(unittest.TestCase):
     def test_invalid_name(self):
@@ -17,3 +17,8 @@ class ProjectModelTests(unittest.TestCase):
         project = TSC.ProjectItem("proj")
         with self.assertRaises(ValueError):
             project.content_permissions = "Hello"
+
+    def test_permissions_not_populated(self):
+        project = TSC.ProjectItem("proj")
+        with self.assertRaises(UnpopulatedPropertyError):
+            permissions = project.permissions

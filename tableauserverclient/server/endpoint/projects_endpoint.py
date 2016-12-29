@@ -1,6 +1,6 @@
 from .endpoint import Endpoint
 from .exceptions import MissingRequiredFieldError
-from .. import RequestFactory, ProjectItem, PaginationItem
+from .. import RequestFactory, ProjectItem, PaginationItem, PermissionItem
 import logging
 import copy
 
@@ -47,3 +47,12 @@ class Projects(Endpoint):
         new_project = ProjectItem.from_response(server_response.content)[0]
         logger.info('Created new project (ID: {0})'.format(new_project.id))
         return new_project
+
+    def populate_permissions(self, project_item):
+        if not project_item.id:
+            error = 'Project item missing ID. Project must be retrieved from server first.'
+            raise MissingRequiredFieldError(error)
+        url = "{0}/{1}/permissions".format(self.baseurl, project_item.id)
+        server_response = self.get_request(url)
+        project_item._set_permissions(PermissionItem.from_response(server_response.content))
+        logger.info('Populated permissions for project (ID: {0})'.format(project_item.id))

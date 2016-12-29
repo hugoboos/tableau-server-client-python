@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from .exceptions import UnpopulatedPropertyError
 from .property_decorators import property_is_enum, property_not_empty
 from .. import NAMESPACE
 
@@ -10,6 +11,7 @@ class ProjectItem(object):
 
     def __init__(self, name, description=None, content_permissions=None):
         self._content_permissions = None
+        self._permissions = None
         self._id = None
         self.description = description
         self.name = name
@@ -23,6 +25,12 @@ class ProjectItem(object):
     @property_is_enum(ContentPermissions)
     def content_permissions(self, value):
         self._content_permissions = value
+
+    @property
+    def permissions(self):
+        if self._permissions is None:
+            raise UnpopulatedPropertyError('Project item must be populated with permissions first.')
+        return self._permissions
 
     @property
     def id(self):
@@ -58,6 +66,9 @@ class ProjectItem(object):
             self.description = description
         if content_permissions:
             self._content_permissions = content_permissions
+
+    def _set_permissions(self, permissions):
+        self._permissions = permissions
 
     @classmethod
     def from_response(cls, resp):

@@ -8,6 +8,7 @@ TEST_ASSET_DIR = os.path.join(os.path.dirname(__file__), 'assets')
 GET_XML = os.path.join(TEST_ASSET_DIR, 'project_get.xml')
 UPDATE_XML = os.path.join(TEST_ASSET_DIR, 'project_update.xml')
 CREATE_XML = os.path.join(TEST_ASSET_DIR, 'project_create.xml')
+POPULATE_PERMISSIONS_XML = os.path.join(TEST_ASSET_DIR, 'project_populate_permissions.xml')
 
 
 class ProjectTests(unittest.TestCase):
@@ -97,3 +98,18 @@ class ProjectTests(unittest.TestCase):
 
     def test_create_missing_name(self):
         self.assertRaises(ValueError, TSC.ProjectItem, '')
+
+    def test_populate_permissions(self):
+        with open(POPULATE_PERMISSIONS_XML, 'rb') as f:
+            response_xml = f.read().decode('utf-8')
+        with requests_mock.mock() as m:
+            m.get(self.baseurl + '/b7f7713b-902e-40bf-885e-b2b24c602877/permissions', text=response_xml)
+            single_project = TSC.ProjectItem('default')
+            single_project._id = 'b7f7713b-902e-40bf-885e-b2b24c602877'
+            self.server.projects.populate_permissions(single_project)
+
+        self.assertEqual(3, len(single_project.permissions))
+
+    def test_populate_permissions_missing_id(self):
+        single_project = TSC.ProjectItem('default')
+        self.assertRaises(TSC.MissingRequiredFieldError, self.server.projects.populate_permissions, single_project)
